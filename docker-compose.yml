@@ -1,0 +1,19 @@
+version: '3.7'
+
+volumes:
+  mysqldata:
+    driver: local
+
+services:
+  database:
+    image: mysql
+    container_name: mysql-xsolution-ead
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_USER=wolftech
+      - MYSQL_PASSWORD=wolftech024681dias
+      - MYSQL_ROOT_PASSWORD=wolftech024681dias
+      - MYSQL_DATABASE=xsolution_ead
+    volumes:
+      - mysqldata:/data/mysql

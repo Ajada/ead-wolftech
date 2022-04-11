@@ -1,0 +1,52 @@
+.container-block{
+    width: 100%;
+}
+
+.block{
+    max-width: 400px;
+    width: 100%;
+    min-height: 400px;
+    float: left;
+    margin: 1% 1% 0% 2.5%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.img-block{        
+    height: 225px;
+    border-radius: 5px 5px 0px 0px;
+}
+
+.content-block{
+    text-align: center;
+
+}
+
+.content-block .content-block-title{
+    width: 100%;
+    /* background-color: brown; */
+}
+
+.content-block .content-block-access{
+
+}
+
+.content-block .content-block-access h1{
+
+}
+
+.content-block .content-block-access button{
+    padding: 5px;
+    border-radius: 25px;
+    width: 65%;
+}
+
+@media screen and (max-width: 768px) {
+    .block{
+        max-width: 100%;
+        width: 95%;
+        margin-top: 10px;
+    }
+
+
+}
