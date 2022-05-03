@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersTable extends Migration
+class CreateScoreModelsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users_login', function (Blueprint $table) {
+        Schema::create('score_student', function (Blueprint $table) {
             $table->id();
-            $table->string('mail');
-            $table->string('password');
-            $table->string('token');
+            $table->string('student');
+            $table->longText('class_score');
+            $table->longText('final_result')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users_login');
+        Schema::dropIfExists('score_student');
     }
 }

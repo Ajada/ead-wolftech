@@ -4,15 +4,7 @@
             <div class="col four left">
                 <h1>Sobre</h1>
                 <p>
-                    So that's it. This started out as 20 minutes of making fun of modern web dev. Then it turned into a few hours of it.
-                </p>
-                
-                <p>
-                    I hope you've enjoyed looking at every modern website ever.
-                </p>
-                
-                <p>
-                    I don't actually hate this style as long as the content is meaningful. In fact, I think this type of design is pretty cool and effective.
+                    Especializada nos serviços que oferece, possuimos uma equipe altamente qualificada a disposição para realizar a gestão e apresentar soluções para qualquer desafio relacionado ao nosso ramo de atuação.
                 </p>
             </div>
             
@@ -22,17 +14,19 @@
                 </h1>
                 
                 <p>
-                    CSS3 and HTML. JS for header shrinking; optional. Site works perfectly with JS disabled (another gripe of mine with modern web dev).
-                </p>
-                
-                <p>
-                    Only external libraries are GFonts.
-                </p>
-                
-                <p>
-                    Moderately responsive, should work on anything modern.
-                </p>
+                    Contate-nos: <br>
+                    <a style="font-size: 18px" href="http://whatsapp.wolftechti.com.br/">    
+                        <i style="color: rgb(17, 191, 26)" class="fa-brands fa-whatsapp"></i> 15 99638-2898
+                    </a>
 
+                    <a style="padding-left: 10px; font-size: 18px" href="http://whatsapp.wolftechti.com.br/">    
+                        <i style="color: rgb(17, 191, 26)" class="fa-brands fa-whatsapp"></i> 15 99815-9644
+                    </a>
+                </p>
+                
+                <p>
+                    Tire suas duvidas, dê sujestões e criticas, estamos esperando você 😉
+                </p>
             </div>
             
             <div class="col four left">
@@ -40,13 +34,20 @@
                     Siga-nos
                 </h1>
                 
-                <p>
-                    Many popular HTML themes have thousands of lines of HTML, thousands of lines of CSS and several JS plugins on every page amounting to tens of thousands of lines of JavaScript.
+                <p style="font-size: 18px; padding-top: 5px">
+                    {{-- Facebook: <br> --}}
+                    <a href="http://facebook.wolftechti.com.br/">    
+                        <i style="color: rgb(20, 75, 178)" class="fa-brands fa-facebook"></i> Facebook
+                    </a>
                 </p>
-                
-                <p>
-                    I fail to see a valid reason for this, particularly the horrendous line counts that are usually due to unused features or badly designed code.
+
+                <p style="font-size: 18px; padding-top: 5px">
+                    {{-- Instagram: <br> --}}
+                    <a href="http://instagram.wolftechti.com.br/">    
+                        <i style="color: rgb(233, 145, 12)" class="fa-brands fa-instagram"></i> Instagram
+                    </a>
                 </p>
+
             </div>
             
             <div class="col four left">
@@ -55,13 +56,13 @@
                 </h1>
                 
                 <p>
-                    I'm Andrew.
+                    Você pode entrar em contato através do nosso e-mail:
                 </p>
                 
                 <p>
-                    You can get in touch with me through 
-                    <a href="http://atunnecliffe.com">http://atunnecliffe.com</a> or 
-                    <a href="mailto:andrew@atunnecliffe.com">emailing me</a>.
+                    <a style="font-size: 18px" href="mailto:contato@wolftechti.com.br">
+                        <i style="color: rgb(211, 17, 17); " class="fa-solid fa-envelope"></i> xsolution@xsolution-ssma.com.br
+                    </a>
                 </p>
             </div>
         
@@ -70,3 +71,4 @@
         </div>
     </div>
 </div>
+

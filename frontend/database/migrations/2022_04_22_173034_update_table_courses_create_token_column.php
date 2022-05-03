@@ -1,10 +1,11 @@
 <?php
 
+use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersTable extends Migration
+class UpdateTableCoursesCreateTokenColumn extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +14,8 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users_login', function (Blueprint $table) {
-            $table->id();
-            $table->string('mail');
-            $table->string('password');
-            $table->string('token');
-            $table->timestamps();
+        Schema::table('courses', function(Blueprint $table){
+            $table->string('course_token')->after('class');
         });
     }
 
@@ -29,6 +26,8 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users_login');
+        Schema::table('courses', function(Blueprint $table){
+            $table->dropColumn('token');
+        });
     }
 }

@@ -8,9 +8,9 @@
             </div>
             <div class="header-home">
                 <h1>
-                    Olá, {{ 'Nome do aluno' }}    
+                    Olá, {{ session('session_name') }}    
                 </h1>
-                <p>Você está matriculado em 1 curso(s) </p>
+                <p>Você está matriculado em {{ '3' }} curso(s) </p>
             </div>
             <div class="clear"></div>
         </div>
@@ -18,27 +18,15 @@
 @endsection
 
 @section('content')
-    <div class="title">
-        <h1><i class="fa-solid fa-graduation-cap"></i> Seus Cursos</h1>
+    <div class="central-container">
+        <div class="title">
+            <h1><i class="fa-solid fa-graduation-cap"></i> Seus Cursos</h1>
+        </div>
+            @foreach ($course as $key => $value)
+                @component('components.blocks', ['module_url' => 'module/'.$value['id'] , 'image_url' => '../images/example_1.jpg', 'title' => $value['course_name'] ])
+                    
+                @endcomponent    
+            @endforeach
+        <div class="clear"></div>
     </div>
-        @component('components.blocks')
-            
-        @endcomponent
-
-        @component('components.blocks')
-            
-        @endcomponent
-
-        @component('components.blocks')
-            
-        @endcomponent
-
-        @component('components.blocks')
-            
-        @endcomponent
-
-        @component('components.blocks')
-            
-        @endcomponent
-    <div class="clear"></div>
 @endsection

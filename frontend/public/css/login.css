@@ -5,6 +5,10 @@
     font-family: 'Noto Sans', sans-serif;
 }
 
+.container .image-login img{
+    width: 60%;
+}
+
 .container{
     background-color: white;
     height: 100vh;
@@ -13,9 +17,6 @@
     box-shadow: -10px 5px 10px rgba(0, 0, 0, 0.438);
 }
 
-.container .image-login img{
-    width: 60%;
-}
 
 .container .form-login{
     /* margin-top: 20%; */

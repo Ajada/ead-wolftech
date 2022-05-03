@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="{{ asset('css/blocks.css') }}">
     <link rel="stylesheet" href="{{ asset('css/menu.css') }}">
     <link rel="stylesheet" href="{{ asset('css/menu-mobile.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/modules/class.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/modules/questions.css') }}">
     <link rel="shortcut icon" href="{{ asset('__favicon.ico') }}" type="image/x-icon">
 
 </head>
@@ -18,12 +20,12 @@
 
     @yield('header')
 
-    <div class="central-container">
-        @yield('content')
-    </div>
+    @yield('content')
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{{ asset('js/menu.js') }}"></script>
+    <script src="{{ asset('js/movie.js') }}"></script>
+    <script src="{{ asset('js/questions/questions.js') }}"></script>
 
     @include('_partials.footer')
 
