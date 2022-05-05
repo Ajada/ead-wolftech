@@ -1,13 +1,13 @@
 <div class="container-modal">
     <div class="container-question">
         <div class="question">
-            <h1> {{ isset($question) ? $question : 'Ainda esta ai ?' }} </h1>
+            <h1> {{ isset($question) ? $question : '' }} </h1>
         </div>
         <div class="response">
             <form>
                 {{-- @csrf --}}
                 <div class="button-grp">
-                    <button  id="btn0">
+                    {{-- <button  id="btn0">
                         <span class="form-btn" id="choice0">A - {{ isset($response_1) ? $response_1 : 'Outro' }}</span>
                     </button>
                     
@@ -21,8 +21,8 @@
                     
                     <button id="btn3">
                         <span class="form-btn" id="choice3">D - {{ isset($response_4) ? $response_4 : 'Outro' }}</span>
-                    </button>
-
+                    </button> --}}
+                    {{ $slot }}
                 </div>
             </form>
         </div>

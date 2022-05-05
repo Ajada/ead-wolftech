@@ -1,4 +1,4 @@
-.module{  }
+.module{ }
 
 .module-menu{
     width: 20%;
@@ -6,6 +6,36 @@
     overflow-y: auto;
     float: left;
     padding: 10px;
+}
+
+@media screen and (max-width: 768px) {
+    .module-menu{
+        float: none;
+        width: 100%;
+        max-height: 25vh;
+    }
+    
+    .module .class-content{
+        width: 100%;
+        max-height: 50vh;
+        padding: 10px;
+        float: none !important;
+    }
+
+    .module .class-content-movie{
+        width: 115% !important;
+        /* background-color: #d71d1d; */
+        height: 300px;
+        float: left !important;
+        text-align: left !important;
+    }
+
+    .module .class-content-movie #player{
+        width: 110% !important;
+        height: 300px;
+        padding-bottom: 50px;
+    }
+    
 }
 
 .module-menu::-webkit-scrollbar{
@@ -63,9 +93,6 @@
 
 .module .class-content-movie{
     width: 100%;
-}
-
-.module .class-content-movie{
     padding: 15px;
 }
 

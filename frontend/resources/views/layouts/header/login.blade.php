@@ -9,9 +9,8 @@
     <link rel="stylesheet" href="{{ asset('css/login.css') }}">
     <link rel="stylesheet" href="{{ asset('css/index.css') }}">
 </head>
-<body style="background-image: url('{{ asset('images/login/bg-login.png') }}'); background-repeat: no-repeat; background-size: cover;">
+<body>
 
-    
     @yield('content')
     
     <div class="loading">

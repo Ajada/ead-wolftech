@@ -40,7 +40,7 @@
         </div>
 
         <div class="module-menu-ico"> {{-- barras de menu --}}
-            <i class="fa-solid fa-bars"></i>          
+            {{-- <i class="fa-solid fa-bars"></i>           --}}
         </div>  
         
         <div class="class-content">  {{-- video da aula atual --}}
@@ -53,8 +53,30 @@
             </div>            
         </div>
 
-        @component('components.modals.question', [ 'question' => $key->question, 'response_1' => $key->response_1, 'response_2' => $key->response_2, 'response_3' => $key->response_3, 'response_4' => $key->response_4 ])
-                        
+        @php $arr = []; @endphp
+
+        @foreach ($question as $item => $value)
+            @php
+                $item == 0 ? $arr[0] = $value->{$item} : ''; $item == 1 ? $arr[1] = $value->{$item} : ''; $item == 2 ? $arr[2] = $value->{$item} : ''; $item == 3 ? $arr[3] = $value->{$item} : '';  
+            @endphp
+        @endforeach
+        
+        @component('components.modals.question', [ 'question' => $query ] )
+            <button id="btn0">
+                <span class="form-btn" id="choice0">A - {{ $arr[0] }}</span>
+            </button>
+            
+            <button id="btn0">
+                <span class="form-btn" id="choice0">B - {{ $arr[1] }}</span>
+            </button>
+
+            <button id="btn0">
+                <span class="form-btn" id="choice0">C - {{ $arr[2] }}</span>
+            </button>
+
+            <button id="btn0">
+                <span class="form-btn" id="choice0">D - {{ $arr[3] }}</span>
+            </button>
         @endcomponent
 
     </div>

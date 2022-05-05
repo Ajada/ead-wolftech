@@ -78,9 +78,9 @@ class ScoreController extends Controller
 
         $collect = collect();
 
-        $array = new Fluent($student_score);
+        $db_score = new Fluent($student_score);
 
-        $collect->add($array->toArray()); // stdClass to array 
+        $collect->add($db_score->toArray()); // stdClass to array 
 
         $collect->add($request->class_score); 
 

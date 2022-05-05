@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Server;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin\ClassModel;
+use App\Models\Admin\QuestionsModel;
 use Illuminate\Http\Request;
 
 class ClassController extends Controller
@@ -21,8 +22,7 @@ class ClassController extends Controller
 
         $class = json_decode($course[1]->class); // $class[$key]->class_name
 
-        return view('app.modules.class', ['course_title' => $course_title ,'class' => $class]);
-
+        return view('app.modules.class', ['course_title' => $course_title ,'class' => $class]); 
     }
 
     /**
@@ -60,37 +60,65 @@ class ClassController extends Controller
     {
         $course = ClassModel::where('id', $id)->get()->first();
 
+        // foreach (json_decode($this->query(1)->options) as $key => $value) {            
+        //     $key == 0 ? $key = 'A' : '';
+        //     $key == 1 ? $key = 'B' : '';
+        //     $key == 2 ? $key = 'C' : '';
+        //     $key == 3 ? $key = 'D' : '';
+
+        //     echo $value->{$key};
+        // }
+
+        // die();
+
         if(!isset($course->id))
             return json_encode([
                 'error' => true,
                     'menssage' => 'Modulo não encontrado ou não disponivel'
             ]);
 
+        /**TODO
+         * Otimizar código
+         */
+
         if($course_class !== '' || $course_class !== null ){
             foreach(json_decode($course->class) as $key => $value){
                 if($course_class == $value->class_link){
-                    $class_link = $value->class_link;
                     return view('app.modules.class', [
                         'course' => $course ,
                             'class' => json_decode($course->class), 
-                                'class_link' => $class_link 
+                                'class_link' => $value->class_link,
+                                    'query' => $this->query($course->question)->query,
+                                        'question' => json_decode($this->query($course->question)->options)
                         ]);
                 }
             }
-                $class_link = $value->class_link;
+                // die('foraq do doreach');
                 return view('app.modules.class', [
                     'course' => $course,
                         'class' => json_decode($course->class),
-                            'class_link' => $class_link 
+                            'class_link' => $value->class_link,
+                                'query' => $this->query($course->question)->query,
+                                    'question' => json_decode($this->query($course->question)->options)
                     ]);
         }else{
+            // die('Passou no else');
             $class_link = json_decode($course->class[0]);
             return view('app.modules.class', [
                 'course' => $course ,
                     'class' => json_decode($course->class), 
-                        'class_link' => $class_link 
+                        'class_link' => $class_link,
+                            'query' => $this->query($course->question)->query,
+                                'question' => json_decode($this->query($course->question)->options)
                 ]);
         }
+    }
+
+    public function query($id)
+    {
+        $question = QuestionsModel::whereId($id)->first();
+
+        return $question;
     }
 
     /**

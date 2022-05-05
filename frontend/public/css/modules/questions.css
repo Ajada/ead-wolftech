@@ -23,7 +23,8 @@
 
 @media screen and (max-width: 868px) {
     .container-question{
-        height: 80vh;
+        height: 90vh;
+        width: 95%;
     }
 
     .question h1{

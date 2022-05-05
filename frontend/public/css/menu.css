@@ -337,7 +337,8 @@ h2 {
     }
 
     .footer{
-        margin-top: 240vh;
+        /* margin-top: 240vh; */
+        margin-top: 20px;
     }
 
     .col.four {
