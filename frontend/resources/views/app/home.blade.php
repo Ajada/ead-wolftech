@@ -8,9 +8,9 @@
             </div>
             <div class="header-home">
                 <h1>
-                    Olá, {{ session('session_name') }}    
+                    Olá {{ session('session_name')}}    
                 </h1>
-                <p>Você está matriculado em {{ '3' }} curso(s) </p>
+                <p>Você está matriculado em {{ session('quantity_courses') }} curso(s) </p> 
             </div>
             <div class="clear"></div>
         </div>
@@ -23,7 +23,7 @@
             <h1><i class="fa-solid fa-graduation-cap"></i> Seus Cursos</h1>
         </div>
             @foreach ($course as $key => $value)
-                @component('components.blocks', ['module_url' => 'module/'.$value['id'] , 'image_url' => '../images/example_1.jpg', 'title' => $value['course_name'] ])
+                @component('components.blocks', ['module_url' => 'module/'.$value['id'] , 'image_url' => isset($value['img']) ? asset('images/'.$value['img']) : 'example_1.jpg', 'title' => $value['course_name'] ])
                     
                 @endcomponent    
             @endforeach

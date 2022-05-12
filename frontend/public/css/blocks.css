@@ -48,5 +48,12 @@
         margin-top: 10px;
     }
 
+    .content-block .content-block-title h1{
+        font-size: 25px;
+    }
+
+    .content-block .content-block-access button{
+        margin-top: 10%;
+    }
 
 }

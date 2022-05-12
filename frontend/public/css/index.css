@@ -74,14 +74,8 @@
         text-align: center;
     }
 
-    /* .ico-home{
-        display: block;
-        margin-left: 50%;
-        transform: translate(-50%);
-    } */
-
-    .header-home p{
-        
+    .header-content{
+        text-align: center !important;
     }
 
     .header-home h1,p{
@@ -91,7 +85,15 @@
     .title {
         padding: 2% 4%;
     }    
+}
 
-    
+@media screen and (max-width: 465px){
+    .header-home h1,p{
+        font-size: 15px;
+        padding-top: 10px;
+    }
 
+    .ico-home i{
+        font-size: 40px;    
+    }
 }

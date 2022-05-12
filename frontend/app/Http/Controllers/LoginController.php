@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Admin\SessionModel;
 use App\Models\LoginModel;
 use App\Models\User;
+use PHPUnit\Framework\Constraint\Count;
 
 class LoginController extends Controller 
 {
@@ -21,7 +22,7 @@ class LoginController extends Controller
         return $home->index();
     }
 
-    public function access(Request $request)
+    public function access(Request $request, HomeController $home)
     {
         if( !$request->filled('user') || !$request->filled('password') )
             return json_encode([
@@ -73,5 +74,7 @@ class LoginController extends Controller
         session()->flush(); 
         return redirect()->route('login');
     }
+
+   
     
 }

@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\ClassModel;
 use Illuminate\Http\Request;
 use App\Models\User;
+use phpDocumentor\Reflection\Types\Void_;
+use SebastianBergmann\Type\VoidType;
+
+use function PHPUnit\Framework\returnSelf;
 
 class HomeController extends Controller
 {
@@ -18,11 +22,12 @@ class HomeController extends Controller
     {
         $user = User::where('token', session('session_token'))->first();
 
-        $access = $this->courses($user);
+        $access = $this->courses($user);  
 
         return view('app.home', [
             'user' => $user->name, 
-                'course' => $access
+                'course' => $access,
+                    'amount' => session(['quantity_courses' => $this->count($access)])
             ]);
     }
 
@@ -36,6 +41,11 @@ class HomeController extends Controller
         return $class;
     }
 
+    protected function count(Array $params) 
+    {
+        return count($params);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -44,7 +54,7 @@ class HomeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        die();
     }
 
     /**
@@ -55,7 +65,7 @@ class HomeController extends Controller
      */
     public function show($id)
     {
-        //
+        die();
     }
 
     /**
@@ -67,7 +77,7 @@ class HomeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        die();
     }
 
     /**
@@ -78,6 +88,6 @@ class HomeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        die();
     }
 }

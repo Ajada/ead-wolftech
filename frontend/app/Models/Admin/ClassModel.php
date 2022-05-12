@@ -9,15 +9,15 @@ class ClassModel extends Model
 {
     use HasFactory;
 
-    public $table = 'courses';
+    protected $table = 'courses';
     
-    public $fillable = [
+    protected $fillable = [
         'course_name', 
         'class',
         'course_token'
     ];
 
-    public $cast = [
+    protected $cast = [
         'class' => 'array'
     ];
 

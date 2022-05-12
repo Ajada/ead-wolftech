@@ -43,14 +43,28 @@ body{
         margin-left: auto;
         margin-right: auto;
         margin-top: 30%;
-        position: static;
         width: 95%;
         height: 50vh;
         border-radius: 5px;
     }
 
+
+
+    .container__input:not(:placeholder-shown) + .container__label{
+        transform: translate(0, 30%);
+    }    
+
+    .container__label{  
+        margin-top: -4px;
+    }
+
     .container .form-login{
-        
+        text-align: center !important;
+        margin-left: auto; 
+        margin-right: auto;
+        margin-top: 5%;
+        transform: translate(0, 5%);
+        /* position: static; */
     }
 
 }
@@ -61,7 +75,7 @@ body{
 
 .container__input:not(:placeholder-shown) + .container__label{
     background: white;
-    transform: translate(0, 40%);
+    transform: translate(0, 20%);
     opacity: 1;
 }
 

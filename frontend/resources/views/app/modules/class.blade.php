@@ -8,9 +8,9 @@
             </div>
             <div class="header-home">
                 <h1>
-                    Olá,<span id="user">{{session('session_name')}}</span>
+                    Olá<span id="user">{{session('session_name')}}</span>
                 </h1>
-                <p>Você está matriculado em {{ '1' }} curso(s) </p>
+                <p>Você está matriculado em {{ session('quantity_courses') }} curso(s) </p>
             </div>
             <div class="clear"></div>
         </div>
@@ -21,11 +21,10 @@
 
     <div class="module">        
         <div class="module-menu">     {{-- link das aulas --}}
-            
             <div class="module-class-title">
                 <h1> 
                     <i class="fa-solid fa-film"></i> 
-                    {{ $course->course_name }}
+                    <span>{{ $course->course_name }}</span>
                 </h1>
             </div>            
             
@@ -36,25 +35,36 @@
                     </a>                
                 </div>
             @endforeach
-
+                <div class="module-class">
+                    <a title="Avaliação Final - {{ $course->course_name }}" href="/assessment/{{ $course->course_token }}">
+                        <i class="fa-solid fa-table-list"></i> <span> AVALIAÇÃO FINAL </span>
+                    </a>                
+                </div>
         </div>
 
         <div class="module-menu-ico"> {{-- barras de menu --}}
-            {{-- <i class="fa-solid fa-bars"></i>           --}}
+            {{-- <i class="fa-solid fa-bars"></i> --}}
         </div>  
         
-        <div class="class-content">  {{-- video da aula atual --}}
+        <div class="class-content">  {{-- nome da aula atual --}}
             <div class="class-content-title">
-                <h1>{{-- $key->class_name --}}</h1>
+                {{-- <h1>{{ $key->class_name }}</h1> --}}
             </div>
 
-            <div class="class-content-movie">
-                <div id="player" data-vide-id="{{ $class_link }}"></div>
-            </div>            
+            @if (isset($first))
+                <div class="class-content-movie">
+                    <div id="player" data-vide-id="{{ $first->{'class_link'} }}"></div>
+                </div>
+            @else
+                <div class="class-content-movie">
+                    <div id="player" data-vide-id="{{ $class_link }}"></div>
+                </div>
+            @endif
+
+
         </div>
 
         @php $arr = []; @endphp
-
         @foreach ($question as $item => $value)
             @php
                 $item == 0 ? $arr[0] = $value->{$item} : ''; $item == 1 ? $arr[1] = $value->{$item} : ''; $item == 2 ? $arr[2] = $value->{$item} : ''; $item == 3 ? $arr[3] = $value->{$item} : '';  

@@ -10,19 +10,19 @@ var videoDuration = 0;
 var videoTime = 0;
 var interval = null;
 // var fireAt = 180;
-var fireAt = 2;
+var fireAt = 2; 
 
 
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
-        height: 450, // qualquer altura desejada
-        width: 800, // qualquer largura desejada
+        height: 450, 
+        width: 800, 
         videoId: $(playerDiv).attr('data-vide-id'),
-        playerVars: { // adicionando algumas variáveis
-            rel: 0, // não exibir videos relacionados ao final
-            showinfo: 0, // ocultar informações do video
-            autoplay: 1, // play automático
-            controls: 1 
+        playerVars: { 
+            rel: 0, 
+            showinfo: 0, 
+            autoplay: 1, 
+            controls: 0  
         },
         events: {
             'onReady' : onPlayerReady

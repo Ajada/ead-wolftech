@@ -29,6 +29,24 @@
                 </p>
             </div>
             
+            
+            
+            <div class="col four left">
+                <h1>
+                    Entre em contato
+                </h1>
+                
+                <p>
+                    Você pode entrar em contato através do nosso e-mail:
+                </p>
+                
+                <p>
+                    <a style="font-size: 18px" href="mailto:contato@wolftechti.com.br">
+                        <i style="color: rgb(211, 17, 17); " class="fa-solid fa-envelope"></i> xsolution@xsolution-ssma.com.br
+                    </a>
+                </p>
+            </div>
+        
             <div class="col four left">
                 <h1>
                     Siga-nos
@@ -49,25 +67,12 @@
                 </p>
 
             </div>
-            
-            <div class="col four left">
-                <h1>
-                    Entre em contato
-                </h1>
-                
-                <p>
-                    Você pode entrar em contato através do nosso e-mail:
-                </p>
-                
-                <p>
-                    <a style="font-size: 18px" href="mailto:contato@wolftechti.com.br">
-                        <i style="color: rgb(211, 17, 17); " class="fa-solid fa-envelope"></i> xsolution@xsolution-ssma.com.br
-                    </a>
-                </p>
-            </div>
-        
+
+
             <div class="group"></div>
 
+            
+            
         </div>
     </div>
 </div>

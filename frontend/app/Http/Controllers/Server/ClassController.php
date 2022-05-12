@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Server;
 
+use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\ClassModel;
 use App\Models\Admin\QuestionsModel;
 use Illuminate\Http\Request;
+
+use function GuzzleHttp\Promise\each;
 
 class ClassController extends Controller
 {
@@ -14,7 +17,7 @@ class ClassController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(HomeController $amount)
     {
         $course = ClassModel::all();
 
@@ -60,28 +63,15 @@ class ClassController extends Controller
     {
         $course = ClassModel::where('id', $id)->get()->first();
 
-        // foreach (json_decode($this->query(1)->options) as $key => $value) {            
-        //     $key == 0 ? $key = 'A' : '';
-        //     $key == 1 ? $key = 'B' : '';
-        //     $key == 2 ? $key = 'C' : '';
-        //     $key == 3 ? $key = 'D' : '';
-
-        //     echo $value->{$key};
-        // }
-
-        // die();
-
         if(!isset($course->id))
             return json_encode([
                 'error' => true,
                     'menssage' => 'Modulo não encontrado ou não disponivel'
             ]);
 
-        /**TODO
-         * Otimizar código
-         */
+        /* TODO: Otimizar código */
 
-        if($course_class !== '' || $course_class !== null ){
+        if($course_class !== '' || $course_class !== null ){ // retorna o video selecionado
             foreach(json_decode($course->class) as $key => $value){
                 if($course_class == $value->class_link){
                     return view('app.modules.class', [
@@ -93,16 +83,17 @@ class ClassController extends Controller
                         ]);
                 }
             }
-                // die('foraq do doreach');
-                return view('app.modules.class', [
-                    'course' => $course,
-                        'class' => json_decode($course->class),
-                            'class_link' => $value->class_link,
-                                'query' => $this->query($course->question)->query,
-                                    'question' => json_decode($this->query($course->question)->options)
-                    ]);
-        }else{
-            // die('Passou no else');
+            $first = json_decode($course->class);
+            $first = reset($first);
+            
+            return view('app.modules.class', [
+                'course' => $course,
+                    'class' => json_decode($course->class),
+                        'first' => $first,
+                            'query' => $this->query($course->question)->query,
+                                'question' => json_decode($this->query($course->question)->options)
+                ]);
+        }else{ 
             $class_link = json_decode($course->class[0]);
             return view('app.modules.class', [
                 'course' => $course ,

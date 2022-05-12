@@ -12,20 +12,24 @@
     <link rel="stylesheet" href="{{ asset('css/menu-mobile.css') }}">
     <link rel="stylesheet" href="{{ asset('css/modules/class.css') }}">
     <link rel="stylesheet" href="{{ asset('css/modules/questions.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/modules/assessment.css') }}">
     <link rel="shortcut icon" href="{{ asset('__favicon.ico') }}" type="image/x-icon">
 
 </head>
 <body>
-    @include('_partials.menu')
-
-    @yield('header')
-
-    @yield('content')
     
+    @include('_partials.menu')
+    
+    @yield('header')
+    
+    @yield('content')
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{{ asset('js/menu.js') }}"></script>
     <script src="{{ asset('js/movie.js') }}"></script>
     <script src="{{ asset('js/questions/questions.js') }}"></script>
+    <script src="{{ asset('js/questions/assessment.js') }}"></script>
+
 
     @include('_partials.footer')
 
