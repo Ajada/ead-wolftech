@@ -12,11 +12,10 @@ var interval = null;
 // var fireAt = 180;
 var fireAt = 2; 
 
-
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
         height: 450, 
-        width: 800, 
+        width: 800,
         videoId: $(playerDiv).attr('data-vide-id'),
         playerVars: { 
             rel: 0, 
@@ -70,6 +69,7 @@ $('.form-btn').click(function(){
             $('.container-modal').fadeOut() 
         }
     }); 
+    
     return false
 });
 

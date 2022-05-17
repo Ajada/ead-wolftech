@@ -29,26 +29,25 @@
             </div>            
             
             @foreach ($class as $key)
-                <div class="module-class">
-                    <a title="{{ isset($key->link_description) ? $key->link_description : $key->class_name }}" href="/module/{{ $course->id }}/{{ $key->class_link }}">
+                <div class="module-class ">
+                    <a class="pressed-class " title="{{ isset($key->link_description) ? $key->link_description : $key->class_name }}" href="/module/{{ $course->id }}/{{ $key->class_link }}">
                         <i class="fa-solid fa-video"></i> <span> {{ $key->class_name }} </span>    
                     </a>                
                 </div>
             @endforeach
-                <div class="module-class">
-                    <a title="Avaliação Final - {{ $course->course_name }}" href="/assessment/{{ $course->course_token }}">
-                        <i class="fa-solid fa-table-list"></i> <span> AVALIAÇÃO FINAL </span>
-                    </a>                
-                </div>
+                @if ($assessment == false)
+                    <div class="module-class">
+                        <a title="Avaliação Final - {{ $course->course_name }}" href="/assessment/{{ $course->course_token }}">
+                            <i class="fa-solid fa-table-list"></i> <span> AVALIAÇÃO FINAL </span>
+                        </a>                
+                    </div>
+                @endif
         </div>
-
-        <div class="module-menu-ico"> {{-- barras de menu --}}
-            {{-- <i class="fa-solid fa-bars"></i> --}}
-        </div>  
         
         <div class="class-content">  {{-- nome da aula atual --}}
             <div class="class-content-title">
-                {{-- <h1>{{ $key->class_name }}</h1> --}}
+                {{-- <h1> {{ $key->class_name }}</h1> --}}
+                <h1></h1>
             </div>
 
             @if (isset($first))

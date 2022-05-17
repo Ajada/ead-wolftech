@@ -6,6 +6,7 @@ use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\ClassModel;
 use App\Models\Admin\QuestionsModel;
+use App\Models\ScoreModel;
 use Illuminate\Http\Request;
 
 use function GuzzleHttp\Promise\each;
@@ -69,7 +70,11 @@ class ClassController extends Controller
                     'menssage' => 'Modulo não encontrado ou não disponivel'
             ]);
 
-        /* TODO: Otimizar código */
+
+        /** 
+         * TODO: 
+         * Fazer metodo para pegar apenas o video selecionado e metodo para pegar todos os dmais 
+        */
 
         if($course_class !== '' || $course_class !== null ){ // retorna o video selecionado
             foreach(json_decode($course->class) as $key => $value){
@@ -79,7 +84,8 @@ class ClassController extends Controller
                             'class' => json_decode($course->class), 
                                 'class_link' => $value->class_link,
                                     'query' => $this->query($course->question)->query,
-                                        'question' => json_decode($this->query($course->question)->options)
+                                        'question' => json_decode($this->query($course->question)->options),
+                                            'assessment' => $this->scoreStudent()['hidden']
                         ]);
                 }
             }
@@ -91,7 +97,8 @@ class ClassController extends Controller
                     'class' => json_decode($course->class),
                         'first' => $first,
                             'query' => $this->query($course->question)->query,
-                                'question' => json_decode($this->query($course->question)->options)
+                                'question' => json_decode($this->query($course->question)->options),
+                                    'assessment' => $this->scoreStudent()['hidden']
                 ]);
         }else{ 
             $class_link = json_decode($course->class[0]);
@@ -100,7 +107,8 @@ class ClassController extends Controller
                     'class' => json_decode($course->class), 
                         'class_link' => $class_link,
                             'query' => $this->query($course->question)->query,
-                                'question' => json_decode($this->query($course->question)->options)
+                                'question' => json_decode($this->query($course->question)->options),
+                                    'assessment' => $this->scoreStudent()['hidden']
                 ]);
         }
     }
@@ -110,6 +118,13 @@ class ClassController extends Controller
         $question = QuestionsModel::whereId($id)->first();
 
         return $question;
+    }
+
+    public function scoreStudent()
+    {
+        $score = ScoreModel::whereStudent(session('session_name'))->get('class_score');
+
+        return $score == null || $score == '' || strlen($score) < 272 ? ['hidden' => true] : ['hidden' => false];
     }
 
     /**

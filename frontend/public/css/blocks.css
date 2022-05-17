@@ -7,6 +7,7 @@
     width: 100%;
     min-height: 400px;
     float: left;
+    /* text-align: left; */
     margin: 1% 1% 0% 1%;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -24,6 +25,7 @@
 
 .content-block .content-block-title{
     width: 100%;
+    /* padding-top: 5px; */
     /* background-color: brown; */
 }
 
@@ -41,7 +43,7 @@
     width: 65%;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 900px) {
     .block{
         max-width: 100%;
         width: 95%;
@@ -55,5 +57,4 @@
     .content-block .content-block-access button{
         margin-top: 10%;
     }
-
 }
