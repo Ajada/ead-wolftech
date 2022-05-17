@@ -19,14 +19,14 @@
 
 @section('content')
     <div class="central-container">
-        <div style="text-align: center; font-size: 18px" class="title">
+        <div style="text-align: center; font-size: 18px;" class="title">
             <h1 id="course_name">{{ $assessment[0]['assessment_name'] }}  </h1>
         </div>
     </div>
     @foreach ($questions as $item => $value)
         <div class="central-container">
             <div style="" class="title">
-                <h1><i style="font-size: 18px" class="fa-solid fa-{{$item == 0 ? '1' : 1 + $item}}"></i> - {{ $value->{'question'} }}  </h1>
+                <h1 class="course_question" style="text-align: center">Pergunta <i style="font-size: 18px" class="fa-solid fa-{{$item == 0 ? '1' : 1 + $item}}"></i>{{ $item == 9 ? '10' : '' }} - {{ $value->{'question'} }}  </h1>
             </div>
 
             <div class="cont-option">
@@ -72,5 +72,9 @@
             <span class="assessment-btn" id="choice0">Finalizar tentativa</span>
         </button>
     </div>
+    
+    @component('components.modals.info')
+        
+    @endcomponent
 
 @endsection

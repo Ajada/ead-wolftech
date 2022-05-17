@@ -25,9 +25,10 @@
         </div>
     
         <div style="text-align: center" class="info">
-            <p>Tentativas permitidas: 2</p>
+            {{-- <p>Tentativas permitidas: 2</p> --}}
+            <p>Cada pergunta possui apenas uma resposta correta</p>
             <p>Metodo de avaliação: Nota mais alta</p>
-            <p>Nota para aprovação: 8,00 de 10,00</p>
+            <p>Nota para aprovação: minimo de 80%</p>
         
             <div class="assessment">
                 <a href="/assessment/module/{{ $quiz->id }}">Iniciar Avaliação</a>

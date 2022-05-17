@@ -5,6 +5,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Server\AssessmentController;
 use App\Http\Controllers\Server\ClassController;
+use App\Http\Controllers\Server\PDFController;
 
 Route::get('/', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'access']);
@@ -25,6 +26,6 @@ Route::group(['middleware' => 'navegation'], function(){
 
     Route::get('/assessment/module/{id}', [AssessmentController::class, 'index']);
 
-    
+    Route::get('/generate_certified', [PDFController::class, 'index']);
 
 });

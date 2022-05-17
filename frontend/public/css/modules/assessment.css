@@ -12,12 +12,6 @@
     color: rgba(0, 0, 0, 0.759);
 }
 
-@media screen and (max-width: 768px) {
-    .info p{
-        padding: 10px;
-    }
-}
-
 .assessment-btn, .assessment{
     margin-top: 30px;
     padding: 10px;
@@ -58,7 +52,30 @@
     background-color: #334981;
 }
 
+.status-bar{
+    width: 80%;
+    border-radius: 20px; 
+    text-align: center; 
+    border: 1px solid #ccc; 
+    margin-left: auto; 
+    margin-right: auto; 
+    margin-top: -10%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
 
+.bar-progress{
+    padding: 10px; 
+    border-radius: 20px; 
+    animation: 
+        statusBar 0.8s steps(100);
+}
+
+@keyframes statusBar{ 
+    from{
+        width: 0; 
+    } 
+}
 
 .cont-option .ul{
     list-style: none;
@@ -74,7 +91,8 @@
     float: left;
     width: 100%;
     height: 80px;
-    border-bottom: 1px solid #333;
+    border-bottom: 2px solid #333;
+    overflow-y: auto;
 }
   
 .ul .li input[type=checkbox]{
@@ -105,6 +123,15 @@
     .btn-assessment{
         width: 90%;
         margin: 20px 40px 10px 20px;
+    }
+    .info p{
+        padding: 10px;
+    }
+    #course_name{
+        font-size: 25px;
+    }
+    .course_question{
+        font-size: 18px;
     }
 
 }

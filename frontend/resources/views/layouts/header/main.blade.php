@@ -13,11 +13,10 @@
     <link rel="stylesheet" href="{{ asset('css/modules/class.css') }}">
     <link rel="stylesheet" href="{{ asset('css/modules/questions.css') }}">
     <link rel="stylesheet" href="{{ asset('css/modules/assessment.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/graphic/style.css') }}">
     <link rel="shortcut icon" href="{{ asset('__favicon.ico') }}" type="image/x-icon">
-
 </head>
 <body>
-    
     @include('_partials.menu')
     
     @yield('header')
@@ -29,7 +28,6 @@
     <script src="{{ asset('js/movie.js') }}"></script>
     <script src="{{ asset('js/questions/questions.js') }}"></script>
     <script src="{{ asset('js/questions/assessment.js') }}"></script>
-
 
     @include('_partials.footer')
 

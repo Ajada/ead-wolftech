@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\AssessmentModel;
 use App\Models\Admin\ClassModel;
 use App\Models\ScoreModel;
+use Hamcrest\Type\IsObject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Fluent;
+use PHPUnit\Framework\RiskyTestError;
 use PHPUnit\Util\Json;
 
 use function PHPUnit\Framework\returnSelf;
@@ -49,35 +51,27 @@ class AssessmentController extends Controller
 
     public function getResult(Request $request)
     {
-        $registerAssessment = ScoreModel::whereStudent($request->user)->first();
+        $registerAssessment = ScoreModel::whereStudent($request->user)->first(); // pontuação do aluno
 
-        if($registerAssessment['final_result'] == null){
-            /**
-            * TODO 
-            * Separa função para adição de cursos
-            */
-            DB::table('score_student')
-                ->whereStudent($registerAssessment['student'])
-                    ->update(['final_result' => json_encode([
-                        'course_name' => $request->course_name, 
-                        'res_0' => $request->result[0],
-                        'res_1' => $request->result[1],
-                        'res_2' => $request->result[2],
-                        'res_3' => $request->result[3],
-                        'res_4' => $request->result[4]
-                        ])]
-                    );
-            die(json_encode(['success' => true]));
-        }
-        
         $newResult = [
             'course_name' => $request->course_name,
-            'res_0' => $request->result[0],
-            'res_1' => $request->result[1],
-            'res_2' => $request->result[2],
-            'res_3' => $request->result[3],
-            'res_4' => $request->result[4]
+            'res_0' => isset($request->result[0]) ? $request->result[0] : 'not',
+            'res_1' => isset($request->result[1]) ? $request->result[1] : 'not',
+            'res_2' => isset($request->result[2]) ? $request->result[2] : 'not',
+            'res_3' => isset($request->result[3]) ? $request->result[3] : 'not',
+            'res_4' => isset($request->result[4]) ? $request->result[4] : 'not'
         ];
+
+        $this->finalResult($newResult);
+
+        if($registerAssessment['final_result'] == null){
+            DB::table('score_student')
+                ->whereStudent($registerAssessment['student'])
+                    ->update(['final_result' => json_encode($newResult)]
+                    );
+            $this->finalResult($newResult);
+            die(json_encode(['accredited' => true])); // function
+        }
         
         $finalResult = json_decode($registerAssessment['final_result']);
 
@@ -99,6 +93,42 @@ class AssessmentController extends Controller
                     'final_result' => '['.$treat.']'
                 ]); 
 
-        die(json_encode(['success' => true]));
+        $this->finalResult($newResult);
     }
+
+    public function finalResult($data)
+    {
+        $data == is_object($data) || 
+            $data == is_array($data) ? '' : die(json_encode(['error' => 'string given']));
+
+        $right_answer = $this->getRightAnswer($data['course_name']);
+        unset($data['course_name']);
+        $i = 0;
+        $point = 0;
+
+        foreach ($data as $key => $value) {
+            $response = explode('_', $value);
+            if($response[0] == $right_answer[$i])
+                $point++;
+            $i++;
+        }
+
+        if($point < $i - 2){
+            die(json_encode(['accredited' => false, 'status' => $point]));
+        }
+
+        die(json_encode(['accredited' => true, 'status' => $point]));
+    }
+
+    public function getRightAnswer($title)
+    {
+        $right_answer = explode(",", AssessmentModel::where('assessment_name', $title)->get('right_answer'));
+
+        $right_answer = str_replace('[{"right_answer":"', '', $right_answer);
+
+        $right_answer = str_replace('"}]', '', $right_answer);
+
+        return $right_answer;
+    }
+
 }
