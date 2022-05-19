@@ -11,9 +11,9 @@ services:
     ports:
       - 3306:3306
     environment:
-      - MYSQL_USER=wolftech
-      - MYSQL_PASSWORD=wolftech024681dias
-      - MYSQL_ROOT_PASSWORD=wolftech024681dias
-      - MYSQL_DATABASE=xsolution_ead
+      - MYSQL_USER=
+      - MYSQL_PASSWORD=
+      - MYSQL_ROOT_PASSWORD=
+      - MYSQL_DATABASE=
     volumes:
       - mysqldata:/data/mysql

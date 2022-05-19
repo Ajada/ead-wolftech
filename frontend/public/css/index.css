@@ -85,6 +85,9 @@
     .title {
         padding: 2% 4%;
     }    
+    .loading img{
+        width: 110%;
+    }
 }
 
 @media screen and (max-width: 465px){

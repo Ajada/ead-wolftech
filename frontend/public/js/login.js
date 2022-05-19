@@ -1,3 +1,10 @@
+$(function(){
+    $('.loading').toggle();
+    setTimeout(() => {
+        $('.loading').toggle();
+    }, 1000);
+})
+
 $('.btn-login').click(()=>{
 
     let request = {
