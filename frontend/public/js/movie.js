@@ -9,8 +9,7 @@ var player = null;
 var videoDuration = 0;
 var videoTime = 0;
 var interval = null;
-// var fireAt = 180;
-var fireAt = 2; 
+var fireAt = 180;
 
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
