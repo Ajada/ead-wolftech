@@ -20,7 +20,7 @@ function onYouTubeIframeAPIReady() {
             rel: 0, 
             showinfo: 0, 
             autoplay: 1, 
-            controls: 0  
+            controls: 1
         },
         events: {
             'onReady' : onPlayerReady
@@ -42,6 +42,9 @@ function discoverTime(){
         player.pauseVideo();
         $('.container-modal').fadeIn()
     }
+
+    if(videoTime == videoDuration - 5)
+        $('.toogle').fadeIn();
 
     if(videoTime > videoDuration){
         clearInterval(interval);

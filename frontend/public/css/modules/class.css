@@ -12,12 +12,27 @@
     color: red !important;
 }
 
+.toogle{
+    display: none;
+}
+
+.class-content-title{
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+}
+
 @media screen and (max-width: 768px) {
     .module-menu{
         float: none;
         width: 100%;
         max-height: 25vh;
         border-bottom: 1px solid #ccc;
+    }
+
+    .class-content-title{
+        padding: 20px;
+        width: 125%;
     }
     
     .module .class-content{

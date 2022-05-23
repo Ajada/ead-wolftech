@@ -120,6 +120,9 @@ class AssessmentController extends Controller
         die(json_encode(['accredited' => true, 'status' => $point]));
     }
 
+    /**
+     * 
+     */
     public function getRightAnswer($title)
     {
         $right_answer = explode(",", AssessmentModel::where('assessment_name', $title)->get('right_answer'));

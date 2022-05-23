@@ -8,11 +8,15 @@ use App\Models\Admin\ClassModel;
 use App\Models\Admin\QuestionsModel;
 use App\Models\ScoreModel;
 use Illuminate\Http\Request;
+use PhpParser\ErrorHandler\Collecting;
 
 use function GuzzleHttp\Promise\each;
 
 class ClassController extends Controller
 {
+    private $arr = [];
+    private $obj = [];
+
     /**
      * Display a listing of the resource.
      *
@@ -60,7 +64,7 @@ class ClassController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id, $course_class = '')
+    public function show($id, $course_class = null)
     {
         $course = ClassModel::where('id', $id)->get()->first();
 
@@ -70,48 +74,84 @@ class ClassController extends Controller
                     'menssage' => 'Modulo não encontrado ou não disponivel'
             ]);
 
+        $this->allLinks((object)json_decode($course->class));
+        
+        $this->allClasses((object)json_decode($course->class));
 
-        /** 
-         * TODO: 
-         * Fazer metodo para pegar apenas o video selecionado e metodo para pegar todos os dmais 
-        */
+        $class = $this->getClass($this->arr, $course_class);
 
-        if($course_class !== '' || $course_class !== null ){ // retorna o video selecionado
-            foreach(json_decode($course->class) as $key => $value){
-                if($course_class == $value->class_link){
-                    return view('app.modules.class', [
-                        'course' => $course ,
-                            'class' => json_decode($course->class), 
-                                'class_link' => $value->class_link,
-                                    'query' => $this->query($course->question)->query,
-                                        'question' => json_decode($this->query($course->question)->options),
-                                            'assessment' => $this->scoreStudent()['hidden']
-                        ]);
-                }
-            }
-            $first = json_decode($course->class);
-            $first = reset($first);
-            
-            return view('app.modules.class', [
-                'course' => $course,
-                    'class' => json_decode($course->class),
-                        'first' => $first,
-                            'query' => $this->query($course->question)->query,
-                                'question' => json_decode($this->query($course->question)->options),
-                                    'assessment' => $this->scoreStudent()['hidden']
-                ]);
-        }else{ 
-            $class_link = json_decode($course->class[0]);
-            return view('app.modules.class', [
-                'course' => $course ,
-                    'class' => json_decode($course->class), 
-                        'class_link' => $class_link,
-                            'query' => $this->query($course->question)->query,
-                                'question' => json_decode($this->query($course->question)->options),
-                                    'assessment' => $this->scoreStudent()['hidden']
-                ]);
-        }
+        return view('app.modules.class', [
+            'course_name' => $course->course_name,
+            'course_token' => $course->course_token,
+            'id' => $course->id,
+            'before' => $class[0],
+            'current' => $class[1],
+            'after' => $class[2],
+            'link' => $class[1]['link'],
+            'query' => $this->query($course->question)->query, // do explode
+            'question' => json_decode($this->query($course->question)->options), // modify
+            'assessment' => $this->scoreStudent()['hidden']
+        ]);
     }
+
+    /**
+     * Monta o array com todas as aulas
+     * 
+     * @param object $course
+     * @return array
+     */
+    public function allClasses(object $course,)
+    {
+        $this->obj = collect();
+        foreach ($course as $key => $value) {
+            $this->obj->add([
+                'name' => $value->{'class_name'}, 
+                'link' => $value->{'class_link'}, 
+                'desc' => $value->{'link_description'}
+            ]);
+        }
+        return $this->obj;
+    }
+
+    /**
+     * Monta o array com os links do curso atual
+     * 
+     * @param object $course
+     * @return object
+     */
+    public function allLinks(object $course)
+    {
+        $this->arr = collect();
+        foreach ($course as $key => $value) {
+            $this->arr->add($value->{'class_link'});
+        }
+        return $this->arr;
+    }
+
+    /**
+     * Retorna o objeto anterior, o selecionado e o próximo 
+     * 
+     * @param object|array $links
+     * @param string $class
+     */
+    public function getClass($links, $class)
+    {
+        if($class == null)
+            return [$before = null, $current = $this->obj[0], $after = $this->obj[1]];
+
+        foreach ($links as $key => $value) {
+            if($value == $class){
+                return [
+                    $before = $key == 0 ? null : $this->obj[$key - 1], // adicionar no array 
+                    $current = $this->obj[$key],
+                    $after = $this->obj[$key + 1]
+                ];
+            }
+        }
+
+        return [$before = null, $current = $this->obj[0], $after = $this->obj[1]];
+    }
+
 
     public function query($id)
     {

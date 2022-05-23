@@ -18,49 +18,52 @@
 @endsection
 
 @section('content')
-
     <div class="module">        
-        <div class="module-menu">     {{-- link das aulas --}}
+        <div class="module-menu">
             <div class="module-class-title">
                 <h1> 
                     <i class="fa-solid fa-film"></i> 
-                    <span>{{ $course->course_name }}</span>
+                    <span>{{ $course_name }}</span>
                 </h1>
-            </div>            
-            
-            @foreach ($class as $key)
+            </div>   
+
+            @if ($before !== null)   
                 <div class="module-class ">
-                    <a class="pressed-class " title="{{ isset($key->link_description) ? $key->link_description : $key->class_name }}" href="/module/{{ $course->id }}/{{ $key->class_link }}">
-                        <i class="fa-solid fa-video"></i> <span> {{ $key->class_name }} </span>    
+                    <a class="pressed-class " title="{{ $before['desc'] }}" href="/module/{{ $id }}/{{ $before['link'] }}">
+                        <i class="fa-solid fa-video"></i> <span> {{ $before['name'] }} </span>
                     </a>                
                 </div>
-            @endforeach
-                @if ($assessment == false)
-                    <div class="module-class">
-                        <a title="Avaliação Final - {{ $course->course_name }}" href="/assessment/{{ $course->course_token }}">
-                            <i class="fa-solid fa-table-list"></i> <span> AVALIAÇÃO FINAL </span>
-                        </a>                
-                    </div>
-                @endif
+            @endif
+
+            <div class="module-class ">
+                <a style="color: brown; font-weight: 700" class="pressed-class " title="{{ $current['desc'] }}" href="/module/{{ $id }}/{{ $link }}">
+                    <i class="fa-solid fa-eye"></i> <span> {{ $current['name'] }} </span>
+                </a>                
+            </div>
+
+            <div class="module-class toogle">
+                <a class="pressed-class " title="{{ $after['desc'] }}" href="/module/{{ $id }}/{{ $after['link'] }}">
+                    <i class="fa-solid fa-video"></i> <span> {{ $after['name'] }} </span>
+                </a>                
+            </div>
+                
+                    @if ($assessment == false)
+                        <div class="module-class">
+                            <a title="Avaliação Final - {{ $course_name }}" href="/assessment/{{ $course_token }}">
+                                <i class="fa-solid fa-table-list"></i> <span> AVALIAÇÃO FINAL </span>
+                            </a>                
+                        </div>
+                    @endif
         </div>
         
         <div class="class-content">  {{-- nome da aula atual --}}
             <div class="class-content-title">
-                {{-- <h1> {{ $key->class_name }}</h1> --}}
-                <h1></h1>
+                <h1> {{ $current['name'] }}</h1>
             </div>
 
-            @if (isset($first))
-                <div class="class-content-movie">
-                    <div id="player" data-vide-id="{{ $first->{'class_link'} }}"></div>
-                </div>
-            @else
-                <div class="class-content-movie">
-                    <div id="player" data-vide-id="{{ $class_link }}"></div>
-                </div>
-            @endif
-
-
+            <div class="class-content-movie">
+                <div id="player" data-vide-id="{{ $link }}"></div>
+            </div>
         </div>
 
         @php $arr = []; @endphp

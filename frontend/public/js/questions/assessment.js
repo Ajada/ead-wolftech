@@ -28,7 +28,7 @@ $('.assessment-btn').click(function(){
     }).done((data)=>{
         if(data.accredited == true){
             setTimeout(() => {             
-                $('#notify').append("<div class='status-bar'><div class='bar-progress' style='background-color: rgb(48, 214, 48); width: "+Number(data.status * 2)+"0%'></div></div>  <h3><strong>Parabéns<strong/> você alcançou nota minima para concluir a prova. <br> Seu certificado esta sendo gerado...<h3/> <br> <a style='font-size: 20px;' href='/'><i class='fa-solid fa-house-chimney'></i> Voltar para o inicio</a>");
+                $('#notify').append("<div class='status-bar'><div class='bar-progress' style='background-color: rgb(48, 214, 48); width: "+Number(data.status * 2)+"0%'></div></div>  <h3><strong>Parabéns<strong/> você alcançou nota minima para concluir a prova. <br> Voce recebera o certificado em breve...<h3/> <br> <a style='font-size: 20px;' href='/'><i class='fa-solid fa-house-chimney'></i> Voltar para o inicio</a>");
             }, 2500);
         }else{
             setTimeout(() => {
