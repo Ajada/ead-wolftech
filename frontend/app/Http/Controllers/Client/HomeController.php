@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use phpDocumentor\Reflection\Types\Void_;
 use SebastianBergmann\Type\VoidType;
-
 use function PHPUnit\Framework\returnSelf;
 
 class HomeController extends Controller

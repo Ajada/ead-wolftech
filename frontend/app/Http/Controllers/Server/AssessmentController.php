@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Fluent;
 use PHPUnit\Framework\RiskyTestError;
 use PHPUnit\Util\Json;
-
+use App\Http\Controllers\CertifiedModelController;
 use function PHPUnit\Framework\returnSelf;
 
 class AssessmentController extends Controller
@@ -31,10 +31,6 @@ class AssessmentController extends Controller
         $assessment_number = $this->verify($token);
 
         $assessment = AssessmentModel::where('assessment_number', $assessment_number[0]->{'assessment'})->first();
-
-        /**TODO
-         * contar quantas chances ainda disponivel
-        */
 
         return view('app.assessment_instructions', ['quiz' => $assessment]);
     }
@@ -62,14 +58,14 @@ class AssessmentController extends Controller
             'res_4' => isset($request->result[4]) ? $request->result[4] : 'not'
         ];
 
-        $this->finalResult($newResult);
+        $this->finalResult($newResult, $request->user); //
 
         if($registerAssessment['final_result'] == null){
             DB::table('score_student')
                 ->whereStudent($registerAssessment['student'])
                     ->update(['final_result' => json_encode($newResult)]
                     );
-            $this->finalResult($newResult);
+            $this->finalResult($newResult, $request->user);
             die(json_encode(['accredited' => true])); // function
         }
         
@@ -93,17 +89,18 @@ class AssessmentController extends Controller
                     'final_result' => '['.$treat.']'
                 ]); 
 
-        $this->finalResult($newResult);
+        $this->finalResult($newResult, $request->user);
     }
 
-    public function finalResult($data)
+    public function finalResult($data, $user)
     {
         $data == is_object($data) || 
             $data == is_array($data) ? '' : die(json_encode(['error' => 'string given']));
 
         $right_answer = $this->getRightAnswer($data['course_name']);
+        $course_name = $data['course_name'];
         unset($data['course_name']);
-        $i = 0;
+        $i = 0; 
         $point = 0;
 
         foreach ($data as $key => $value) {
@@ -117,11 +114,16 @@ class AssessmentController extends Controller
             die(json_encode(['accredited' => false, 'status' => $point]));
         }
 
+        CertifiedModelController::registerUser($user, $course_name);
+
         die(json_encode(['accredited' => true, 'status' => $point]));
     }
 
     /**
+     * Responsavel por pegar as respostas corretas
      * 
+     * @param string $title
+     * @return array
      */
     public function getRightAnswer($title)
     {
