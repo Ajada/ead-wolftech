@@ -10,6 +10,6 @@ class CertifiedModelController extends Controller
 {
     public static function registerUser($user, $course)
     {
-        return DB::table('certifications')->insert(['user' => $user, 'course_name' => $course]);
+        return DB::table('certifications')->insert(['user' => $user, 'course_name' => $course, 'created_at' => date('Y-m-d h:m:s'), 'updated_at' => date('Y-m-d h:m:s')]);
     }
 }

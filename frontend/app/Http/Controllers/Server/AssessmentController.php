@@ -90,6 +90,7 @@ class AssessmentController extends Controller
                 ]); 
 
         $this->finalResult($newResult, $request->user);
+                
     }
 
     public function finalResult($data, $user)
@@ -114,7 +115,7 @@ class AssessmentController extends Controller
             die(json_encode(['accredited' => false, 'status' => $point]));
         }
 
-        CertifiedModelController::registerUser($user, $course_name);
+        CertifiedModelController::registerUser($user, $course_name);    
 
         die(json_encode(['accredited' => true, 'status' => $point]));
     }

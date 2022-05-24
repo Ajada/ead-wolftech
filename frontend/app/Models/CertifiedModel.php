@@ -14,9 +14,7 @@ class CertifiedModel extends Model
     protected $fillable = [
         'user',
         'course_name',
-        'course_token',
+        'created_at', 
+        'updated_at',
     ];
-
-    
-
 }
