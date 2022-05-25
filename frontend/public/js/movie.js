@@ -20,7 +20,7 @@ function onYouTubeIframeAPIReady() {
             rel: 0, 
             showinfo: 0, 
             autoplay: 1, 
-            controls: 0
+            controls: 1
         },
         events: {
             'onReady' : onPlayerReady
@@ -30,7 +30,7 @@ function onYouTubeIframeAPIReady() {
 
 function onPlayerReady(){
     videoDuration = parseInt(player.getDuration()); //pega a duração total do video
-    interval = setInterval(discoverTime, 1000);
+    interval = setInterval(discoverTime, 1100);
 }
 
 function discoverTime(){    
@@ -51,7 +51,7 @@ function discoverTime(){
     }
 }
 
-$('.form-btn').click(function(){
+$('.btn0').click(function(){
     const _response = $(this).text();
     const name = $('#user').text();
     const classLink = $('#player').attr('data-vide-id');

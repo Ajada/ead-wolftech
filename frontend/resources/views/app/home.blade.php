@@ -25,7 +25,7 @@
         
         <div class="container-block">
             @foreach ($course as $key => $value)
-                @component('components.blocks', ['module_url' => 'module/'.$value['id'] , 'image_url' => isset($value['img']) ? asset('images/'.$value['img']) : 'example_1.jpg', 'title' => $value['course_name'] ])
+                @component('components.blocks', ['module_url' => 'module/'.$value['id'].'', 'image_url' => isset($value['img']) ? asset('images/'.$value['img']) : 'example_1.jpg', 'title' => $value['course_name'] ])
                 
                 @endcomponent    
             @endforeach
