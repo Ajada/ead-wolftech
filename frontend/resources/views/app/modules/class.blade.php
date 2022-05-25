@@ -75,19 +75,19 @@
         
         @component('components.modals.question', [ 'question' => $query ] )
             <button class="btn0">
-                <span class="form-btn" id="">A - {{ $arr[0] }}</span>
+                <span class="form-btn">A - {{ $arr[0] }}</span>
             </button>
             
             <button class="btn0">
-                <span class="form-btn" id="">B - {{ $arr[1] }}</span>
+                <span class="form-btn">B - {{ $arr[1] }}</span>
             </button>
 
             <button class="btn0">
-                <span class="form-btn" id="">C - {{ $arr[2] }}</span>
+                <span class="form-btn">C - {{ $arr[2] }}</span>
             </button>
 
             <button class="btn0">
-                <span class="form-btn" id="">D - {{ $arr[3] }}</span>
+                <span class="form-btn">D - {{ $arr[3] }}</span>
             </button>
 
         @endcomponent

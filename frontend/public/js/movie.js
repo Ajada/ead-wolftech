@@ -51,7 +51,6 @@ function discoverTime(){
     }
 }
 
-
 $('.form-btn').click(function(){
     const _response = $(this).text();
     const name = $('#user').text();
