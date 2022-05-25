@@ -58,7 +58,7 @@ $('.form-btn').click(function(){
     const classLink = $('#player').attr('data-vide-id');
 
     $.ajax({
-        url: '/api/questions_response/',
+        url: '/api/questions_response',
         method: 'post',
         dataType: 'json',
         data: {
