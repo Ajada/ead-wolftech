@@ -23,6 +23,3 @@ Route::group(['middleware' => 'questions_create'], function(){
 });
 
 Route::post('/assessment/response', [AssessmentController::class, 'getResult']);
-
-// Route::post('add_new/users', );
-

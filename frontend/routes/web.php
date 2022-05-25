@@ -18,7 +18,7 @@ Route::group(['middleware' => 'navegation'], function(){
 
     Route::get('/module/{id}/{class?}', [ClassController::class, 'show']);
 
-    Route::get('/assessment/{assessment?}', [AssessmentController::class, 'showView']);
+    Route::get('/assessment/{assessment}', [AssessmentController::class, 'showView']);
 
     // Route::get('/assessment/module/{id?}', function(){
     //     return view('app.modules.assessment');

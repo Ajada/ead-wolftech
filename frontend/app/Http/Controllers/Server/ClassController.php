@@ -80,6 +80,8 @@ class ClassController extends Controller
 
         $class = $this->getClass($this->arr, $course_class);
 
+        $question = $this->query($course->question);
+
         return view('app.modules.class', [
             'course_name' => $course->course_name,
             'course_token' => $course->course_token,
@@ -88,8 +90,8 @@ class ClassController extends Controller
             'current' => $class[1],
             'after' => $class[2],
             'link' => $class[1]['link'],
-            'query' => $this->query($course->question)->query, // do explode
-            'question' => json_decode($this->query($course->question)->options), // modify
+            'query' => $question->query, 
+            'question' => json_decode($question->options), 
             'assessment' => $this->scoreStudent()['hidden']
         ]);
     }
@@ -155,7 +157,11 @@ class ClassController extends Controller
 
     public function query($id)
     {
-        $question = QuestionsModel::whereId($id)->first();
+        $id = explode(',', $id);
+
+        $rand = rand($id[0], $id[1]);
+
+        $question = QuestionsModel::whereId($rand)->first();
 
         return $question;
     }
