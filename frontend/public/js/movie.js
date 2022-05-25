@@ -20,7 +20,7 @@ function onYouTubeIframeAPIReady() {
             rel: 0, 
             showinfo: 0, 
             autoplay: 1, 
-            controls: 1
+            controls: 0
         },
         events: {
             'onReady' : onPlayerReady
@@ -58,7 +58,7 @@ $('.form-btn').click(function(){
     const classLink = $('#player').attr('data-vide-id');
 
     $.ajax({
-        url: '/api/questions_response',
+        url: '/api/questions_response/',
         method: 'post',
         dataType: 'json',
         data: {

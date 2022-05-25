@@ -37,7 +37,7 @@
 
 }
 
-.content-block .content-block-access button{
+.content-block .content-block-access > button{
     padding: 5px;
     border-radius: 25px;
     width: 65%;

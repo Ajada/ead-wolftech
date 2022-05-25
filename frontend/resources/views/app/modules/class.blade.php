@@ -56,7 +56,7 @@
                     @endif
         </div>
         
-        <div class="class-content">  {{-- nome da aula atual --}}
+        <div class="class-content">
             <div class="class-content-title">
                 <h1> {{ $current['name'] }}</h1>
             </div>
@@ -74,23 +74,22 @@
         @endforeach
         
         @component('components.modals.question', [ 'question' => $query ] )
-            <button id="btn0">
-                <span class="form-btn" id="choice0">A - {{ $arr[0] }}</span>
+            <button class="btn0">
+                <span class="form-btn" id="">A - {{ $arr[0] }}</span>
             </button>
             
-            <button id="btn0">
-                <span class="form-btn" id="choice0">B - {{ $arr[1] }}</span>
+            <button class="btn0">
+                <span class="form-btn" id="">B - {{ $arr[1] }}</span>
             </button>
 
-            <button id="btn0">
-                <span class="form-btn" id="choice0">C - {{ $arr[2] }}</span>
+            <button class="btn0">
+                <span class="form-btn" id="">C - {{ $arr[2] }}</span>
             </button>
 
-            <button id="btn0">
-                <span class="form-btn" id="choice0">D - {{ $arr[3] }}</span>
+            <button class="btn0">
+                <span class="form-btn" id="">D - {{ $arr[3] }}</span>
             </button>
+
         @endcomponent
-
     </div>
-
 @endsection

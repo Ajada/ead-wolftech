@@ -5,7 +5,6 @@
         </div>
         <div class="response">
             <form>
-                {{-- @csrf --}}
                 <div class="button-grp">
                     {{ $slot }}
                 </div>
