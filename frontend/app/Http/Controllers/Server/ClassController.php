@@ -90,6 +90,10 @@ class ClassController extends Controller
             'current' => $class[1],
             'after' => $class[2],
             'link' => $class[1]['link'],
+            /**TODO
+             * QUERY PASSARA A FAZER PARTE DO OBJETO CLASS COMO $class[1]['query'] PARA AS PERGUNTAS E
+             * QUESTION PASSARA A FAZER PARTE DO OBJETO CLASS COMO $class[1]['question'] PARA AS POSSIVEIS RESPOSTAS DA PERGUNTA
+             */
             'query' => $question->query, 
             'question' => json_decode($question->options), 
             'assessment' => $this->scoreStudent()['hidden']
@@ -109,7 +113,13 @@ class ClassController extends Controller
             $this->obj->add([
                 'name' => $value->{'class_name'}, 
                 'link' => $value->{'class_link'}, 
-                'desc' => $value->{'link_description'}
+                'desc' => $value->{'link_description'},
+                /**TODO
+                 * CADASTRAR TODAS AS PERGUNTAS DOS VIDEOS EM UM BANCO A PARTE 
+                 * FAZER CAMPO PARA COLOCAR A PERGUNTA REFERENTE AO VIDEO ATUAL
+                 * PUXAR PERGUNTA PELO ID DEFINIDO AQUI
+                 * 'query' => $value->{'query'} // a query sera igual ao id da tabela de perguntas (query = 1,2,3,4,5,6,7,8,9,10 ...)
+                 */
             ]);
         }
         return $this->obj;
