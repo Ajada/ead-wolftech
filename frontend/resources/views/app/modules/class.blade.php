@@ -25,7 +25,9 @@
                     <i class="fa-solid fa-film"></i> 
                     <span>{{ $course_name }}</span>
                 </h1>
-            </div>   
+            </div>
+            
+            
 
             @if ($before !== null)   
                 <div class="module-class ">
@@ -41,19 +43,19 @@
                 </a>                
             </div>
 
-            <div class="module-class toogle">
-                <a class="pressed-class " title="{{ $after['desc'] }}" href="/module/{{ $id }}/{{ $after['link'] }}">
-                    <i class="fa-solid fa-video"></i> <span> {{ $after['name'] }} </span>
-                </a>                
-            </div>
-                
-                    @if ($assessment == false)
-                        <div class="module-class">
-                            <a title="Avaliação Final - {{ $course_name }}" href="/assessment/{{ $course_token }}">
-                                <i class="fa-solid fa-table-list"></i> <span> AVALIAÇÃO FINAL </span>
-                            </a>                
-                        </div>
-                    @endif
+            @if ($after !== null)   
+                <div class="module-class toogle">
+                    <a class="pressed-class " title="{{ $after['desc'] }}" href="/module/{{ $id }}/{{ $after['link'] }}">
+                        <i class="fa-solid fa-video"></i> <span> {{ $after['name'] }} </span>
+                    </a>                
+                </div> 
+            @else
+                <div class="module-class">
+                    <a title="Avaliação Final - {{ $course_name }}" href="/assessment/{{ $course_token }}">
+                        <i class="fa-solid fa-table-list"></i> <span> AVALIAÇÃO FINAL </span>
+                    </a>                
+                </div>
+            @endif    
         </div>
         
         <div class="class-content">

@@ -6,6 +6,7 @@ use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\ClassModel;
 use App\Models\Admin\QuestionsModel;
+use App\Models\QuizModel;
 use App\Models\ScoreModel;
 use Illuminate\Http\Request;
 use PhpParser\ErrorHandler\Collecting;
@@ -79,8 +80,8 @@ class ClassController extends Controller
         $this->allClasses((object)json_decode($course->class));
 
         $class = $this->getClass($this->arr, $course_class);
-
-        $question = $this->query($course->question);
+        
+        $question = $this->query($class[1]['query']);
 
         return view('app.modules.class', [
             'course_name' => $course->course_name,
@@ -90,13 +91,9 @@ class ClassController extends Controller
             'current' => $class[1],
             'after' => $class[2],
             'link' => $class[1]['link'],
-            /**TODO
-             * QUERY PASSARA A FAZER PARTE DO OBJETO CLASS COMO $class[1]['query'] PARA AS PERGUNTAS E
-             * QUESTION PASSARA A FAZER PARTE DO OBJETO CLASS COMO $class[1]['question'] PARA AS POSSIVEIS RESPOSTAS DA PERGUNTA
-             */
             'query' => $question->query, 
             'question' => json_decode($question->options), 
-            'assessment' => $this->scoreStudent()['hidden']
+            // 'assessment' => $this->scoreStudent()['hidden']
         ]);
     }
 
@@ -114,12 +111,7 @@ class ClassController extends Controller
                 'name' => $value->{'class_name'}, 
                 'link' => $value->{'class_link'}, 
                 'desc' => $value->{'link_description'},
-                /**TODO
-                 * CADASTRAR TODAS AS PERGUNTAS DOS VIDEOS EM UM BANCO A PARTE 
-                 * FAZER CAMPO PARA COLOCAR A PERGUNTA REFERENTE AO VIDEO ATUAL
-                 * PUXAR PERGUNTA PELO ID DEFINIDO AQUI
-                 * 'query' => $value->{'query'} // a query sera igual ao id da tabela de perguntas (query = 1,2,3,4,5,6,7,8,9,10 ...)
-                 */
+                'query' => $value->{'query'},
             ]);
         }
         return $this->obj;
@@ -156,7 +148,7 @@ class ClassController extends Controller
                 return [
                     $before = $key == 0 ? null : $this->obj[$key - 1], // adicionar no array 
                     $current = $this->obj[$key],
-                    $after = $this->obj[$key + 1]
+                    $after = !isset($this->obj[$key + 1]) ? null : $this->obj[$key + 1]
                 ];
             }
         }
@@ -164,24 +156,19 @@ class ClassController extends Controller
         return [$before = null, $current = $this->obj[0], $after = $this->obj[1]];
     }
 
-
     public function query($id)
     {
-        $id = explode(',', $id);
-
-        $rand = rand($id[0], $id[1]);
-
-        $question = QuestionsModel::whereId($rand)->first();
+        $question = QuizModel::whereId($id)->first();
 
         return $question;
     }
 
-    public function scoreStudent()
-    {
-        $score = ScoreModel::whereStudent(session('session_name'))->get('class_score');
+    // public function scoreStudent()
+    // {
+    //     $score = ScoreModel::whereStudent(session('session_name'))->get('class_score');
 
-        return $score == null || $score == '' || strlen($score) < 272 ? ['hidden' => true] : ['hidden' => false];
-    }
+    //     return $score == null || $score == '' || strlen($score) < 272 ? ['hidden' => true] : ['hidden' => false];
+    // }
 
     /**
      * Update the specified resource in storage.

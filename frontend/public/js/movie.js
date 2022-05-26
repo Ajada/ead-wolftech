@@ -38,9 +38,14 @@ function discoverTime(){
         videoTime = parseInt(player.getCurrentTime());
     }
 
-    if(videoTime < videoDuration && videoTime === fireAt){
-        player.pauseVideo();
+    // if(videoTime < videoDuration && videoTime === fireAt){
+    //     player.pauseVideo();
+    //     $('.container-modal').fadeIn()
+    // }
+
+    if(videoTime == videoDuration - 30){
         $('.container-modal').fadeIn()
+        player.pauseVideo();
     }
 
     if(videoTime == videoDuration - 5)
@@ -65,10 +70,10 @@ $('.btn0').click(function(){
             "class_score" : {"class_link" : classLink, "response" : _response}
         }
     }).done((data)=>{
-        if(data.create == true || data.exist == true || data.updated == true){
-            player.playVideo();
-            $('.container-modal').fadeOut() 
-        }
+        // if(data.create == true || data.exist == true || data.updated == true){
+        player.playVideo();
+        // }
+        $('.container-modal').fadeOut() 
     }); 
     
     return false

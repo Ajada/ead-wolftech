@@ -18,7 +18,9 @@ Route::get('/courses/{id}/{class?}', [ClassController::class, 'show']);
 Route::post('/questions_response', [ScoreController::class, 'update']);
 
 Route::group(['middleware' => 'questions_create'], function(){
-    Route::post('/questions_created', [QueryController::class, 'store']);
+    Route::post('/questions_created', [QueryController::class, 'addQuestion']);
+
+    Route::post('/quiz_created', [QueryController::class, 'addQuiz']);
     
 });
 
