@@ -48,8 +48,10 @@ function discoverTime(){
         player.pauseVideo();
     }
 
-    if(videoTime == videoDuration - 5)
+    if(videoTime == videoDuration - 5){
+        $('.final_assessment').css({'display':'block'})
         $('.toogle').fadeIn();
+    }
 
     if(videoTime > videoDuration){
         clearInterval(interval);

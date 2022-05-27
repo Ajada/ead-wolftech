@@ -26,8 +26,6 @@
                     <span>{{ $course_name }}</span>
                 </h1>
             </div>
-            
-            
 
             @if ($before !== null)   
                 <div class="module-class ">
@@ -50,7 +48,7 @@
                     </a>                
                 </div> 
             @else
-                <div class="module-class">
+                <div class="module-class final_assessment" style="display: none">
                     <a title="Avaliação Final - {{ $course_name }}" href="/assessment/{{ $course_token }}">
                         <i class="fa-solid fa-table-list"></i> <span> AVALIAÇÃO FINAL </span>
                     </a>                
