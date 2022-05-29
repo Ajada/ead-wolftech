@@ -6,17 +6,24 @@ use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\ClassModel;
 use App\Models\Admin\QuestionsModel;
+use App\Models\ClassesSeenModel;
 use App\Models\QuizModel;
 use App\Models\ScoreModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Fluent;
+use Mockery\Undefined;
 use PhpParser\ErrorHandler\Collecting;
+use PHPUnit\Framework\MockObject\ReturnValueNotConfiguredException;
 
 use function GuzzleHttp\Promise\each;
+use function PHPUnit\Framework\returnSelf;
 
 class ClassController extends Controller
 {
     private $arr = [];
     private $obj = [];
+    private $before = [];
 
     /**
      * Display a listing of the resource.
@@ -83,6 +90,10 @@ class ClassController extends Controller
         
         $question = $this->query($class[1]['query']);
 
+        $memory = $this->addMemory($course['course_name'], $course_class);
+        
+        $memory = $this->returnClassFromLink($memory);
+
         return view('app.modules.class', [
             'course_name' => $course->course_name,
             'course_token' => $course->course_token,
@@ -90,6 +101,7 @@ class ClassController extends Controller
             'before' => $class[0],
             'current' => $class[1],
             'after' => $class[2],
+            'memory' => $memory,
             'link' => $class[1]['link'],
             'query' => $question->query, 
             'question' => json_decode($question->options), 
@@ -97,13 +109,111 @@ class ClassController extends Controller
         ]);
     }
 
+    public function returnClassFromLink($link)
+    {
+        for ($i = 0; $i < count($link); $i++) { 
+            if($link[$i]->{'link'} == $this->obj[$i]['link']){
+                $collect[] = [
+                    'name' => $this->obj[$i]['name'], 
+                    'link' => $this->obj[$i]['link'], 
+                    'desc' => $this->obj[$i]['desc'],
+                    'query' => $this->obj[$i]['query'],
+                ];
+            }
+        }
+
+        return $collect;
+    }
+
+    /**
+     * Registra as aulas que o aluno ja assistiu
+     * 
+     * @param string $link
+     * @param string $course_current
+     * 
+     */
+    public function addMemory($course_current, $link)
+    {   
+        $user = ClassesSeenModel::where('user_name', session('session_name'))->where('course_name', $course_current)->first();
+
+        $verifyLink = $this->checkLink($link);
+
+        if(!isset($user)){
+            ClassesSeenModel::create([
+                'user_name' => session('session_name'),
+                'classes' => '['.json_encode(['link' => $verifyLink ]).']',
+                'course_name' => $course_current
+            ]);
+
+            return $this->before;
+        }
+
+        $toArray = new Fluent(json_decode($user['classes']));
+
+        $collect = collect();
+
+        $collect->add($toArray->toArray());
+
+        $check = $this->checkCollectionStudant($collect, $link);
+
+        if($check == null){
+            return json_decode($user['classes']);
+        }        
+
+        $collect->add(['link' => $check]);
+        $treat = str_replace('[','', $collect);
+        $treat = str_replace(']','', $treat);
+
+        DB::table('classes_seen')
+            ->where('user_name', session('session_name'))
+                ->where('course_name', $course_current)
+                    ->update(['classes' => '['.$treat.']']);
+
+        return json_decode($user['classes']);
+    }
+
+    /**
+     * Verifica se o link ja existe na coleção do estudante e 
+     * 
+     * @param object $studant
+     * @param string $link
+     * @return boolean
+     */
+    public function checkCollectionStudant($studant, $link)
+    {
+        foreach ($studant[0] as $key => $value) {
+            if($link == $value->{'link'}){
+                return null;
+            }
+        }
+        return $link;
+    }
+
+    /**
+     * Verifica se o link existe na coleção de links
+     * 
+     * @param string $link
+     * @return string
+     */
+    public function checkLink($link)
+    {   
+        $link == null ? $link = $this->arr[0] : $link;
+
+        foreach ($this->arr as $key => $value) {
+            if($value == $link)
+                return $link;
+        }
+
+        return $this->arr[0];
+    }    
+
     /**
      * Monta o array com todas as aulas
      * 
      * @param object $course
      * @return array
      */
-    public function allClasses(object $course,)
+    public function allClasses(object $course)
     {
         $this->obj = collect();
         foreach ($course as $key => $value) {
@@ -148,7 +258,7 @@ class ClassController extends Controller
                 return [
                     $before = $key == 0 ? null : $this->obj[$key - 1], // adicionar no array 
                     $current = $this->obj[$key],
-                    $after = !isset($this->obj[$key + 1]) ? null : $this->obj[$key + 1]
+                    $after = !isset($this->obj[$key + 1]) ? null : $this->obj[$key + 1],
                 ];
             }
         }

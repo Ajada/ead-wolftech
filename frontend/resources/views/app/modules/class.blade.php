@@ -27,33 +27,48 @@
                 </h1>
             </div>
 
-            @if ($before !== null)   
+                <h2 style="font-weight: 700">AULAS CONCLUIDAS</h2>
+                @if ($memory !== null)   
+                    @foreach ($memory as $item)
+                        <div class="module-class ">
+                            <a class="pressed-class " title="{{ $item['desc'] }}" href="/module/{{ $id }}/{{ $item['link'] }}">
+                                <i class="fa-solid fa-check"></i> <span> {{ $item['name'] }} </span>
+                            </a>                
+                        </div> 
+                    @endforeach
+
+                    <hr>
+                @endif
+
+                @if ($before !== null)   
+                    <div class="module-class ">
+                        <a class="pressed-class " title="{{ $before['desc'] }}" href="/module/{{ $id }}/{{ $before['link'] }}">
+                            <i class="fa-solid fa-video"></i> <span> {{ $before['name'] }} </span>
+                        </a>                
+                    </div>
+                @endif
+
                 <div class="module-class ">
-                    <a class="pressed-class " title="{{ $before['desc'] }}" href="/module/{{ $id }}/{{ $before['link'] }}">
-                        <i class="fa-solid fa-video"></i> <span> {{ $before['name'] }} </span>
+                    <a style="color: brown; font-weight: 700" class="pressed-class " title="{{ $current['desc'] }}" href="/module/{{ $id }}/{{ $link }}">
+                        <i class="fa-solid fa-eye"></i> <span> {{ $current['name'] }} </span>
                     </a>                
                 </div>
-            @endif
 
-            <div class="module-class ">
-                <a style="color: brown; font-weight: 700" class="pressed-class " title="{{ $current['desc'] }}" href="/module/{{ $id }}/{{ $link }}">
-                    <i class="fa-solid fa-eye"></i> <span> {{ $current['name'] }} </span>
-                </a>                
-            </div>
+                @if ($after !== null)   
+                    <div class="module-class toogle">
+                        <a class="pressed-class " title="{{ $after['desc'] }}" href="/module/{{ $id }}/{{ $after['link'] }}">
+                            <i class="fa-solid fa-video"></i> <span> {{ $after['name'] }} </span>
+                        </a>                
+                    </div> 
+                @else
+                    <div class="module-class final_assessment" style="display: none">
+                        <a title="Avaliação Final - {{ $course_name }}" href="/assessment/{{ $course_token }}">
+                            <i class="fa-solid fa-table-list"></i> <span> AVALIAÇÃO FINAL </span>
+                        </a>                
+                    </div>
+                @endif    
 
-            @if ($after !== null)   
-                <div class="module-class toogle">
-                    <a class="pressed-class " title="{{ $after['desc'] }}" href="/module/{{ $id }}/{{ $after['link'] }}">
-                        <i class="fa-solid fa-video"></i> <span> {{ $after['name'] }} </span>
-                    </a>                
-                </div> 
-            @else
-                <div class="module-class final_assessment" style="display: none">
-                    <a title="Avaliação Final - {{ $course_name }}" href="/assessment/{{ $course_token }}">
-                        <i class="fa-solid fa-table-list"></i> <span> AVALIAÇÃO FINAL </span>
-                    </a>                
-                </div>
-            @endif    
+
         </div>
         
         <div class="class-content">

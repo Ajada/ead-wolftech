@@ -20,7 +20,7 @@ function onYouTubeIframeAPIReady() {
             rel: 0, 
             showinfo: 0, 
             autoplay: 1, 
-            controls: 0
+            controls: 1
         },
         events: {
             'onReady' : onPlayerReady
