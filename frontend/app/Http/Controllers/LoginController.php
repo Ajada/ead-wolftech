@@ -61,7 +61,8 @@ class LoginController extends Controller
 
         session(['login' => true, 
                     'session_token' => $user->token,
-                        'session_name' => $user->name
+                        'session_name' => $user->name,
+                            // 'session_cpf' => ''
         ]);
 
         return json_encode([

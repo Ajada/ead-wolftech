@@ -18,7 +18,7 @@ class PDFController extends Controller
             'teste' => $teste
         ];
 
-        return \PDF::loadView('app.modules.certified', compact($user))->setPaper('a4', 'landscape')->download(session('session_name').'.pdf');
+        return \PDF::loadView('app.modules.certified', compact($user))->setPaper('a4', 'landscape')->stream(session('session_name').'.pdf');
     }
 
 

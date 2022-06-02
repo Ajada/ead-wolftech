@@ -13,6 +13,8 @@ use Illuminate\Support\Fluent;
 use PHPUnit\Framework\RiskyTestError;
 use PHPUnit\Util\Json;
 use App\Http\Controllers\CertifiedModelController;
+use App\Models\User;
+
 use function PHPUnit\Framework\returnSelf;
 
 class AssessmentController extends Controller
@@ -117,7 +119,17 @@ class AssessmentController extends Controller
 
         CertifiedModelController::registerUser($user, $course_name);    
 
-        die(json_encode(['accredited' => true, 'status' => $point]));
+        $assessment = AssessmentModel::where('assessment_name', $course_name)->first();
+        $user = User::where('name', $user)->first();
+
+        die(json_encode([
+            'accredited' => true,
+            'status' => $point,
+            'name_studant' => $user['name'],
+            'cpf_studant' => $user['cpf'],
+            'nr_number' => $assessment['nr_number'],
+            'content' => $assessment['content_certification'],
+        ]));
     }
 
     /**

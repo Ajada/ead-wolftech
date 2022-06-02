@@ -87,7 +87,7 @@ class ClassController extends Controller
         $this->allClasses((object)json_decode($course->class));
 
         $class = $this->getClass($this->arr, $course_class);
-        
+
         $question = $this->query($class[1]['query']);
 
         $memory = $this->addMemory($course['course_name'], $course_class);
@@ -105,12 +105,14 @@ class ClassController extends Controller
             'link' => $class[1]['link'],
             'query' => $question->query, 
             'question' => json_decode($question->options), 
+            'question_id' => $question->id,
             // 'assessment' => $this->scoreStudent()['hidden']
         ]);
     }
 
     public function returnClassFromLink($link)
     {
+        $collect = [];
         for ($i = 0; $i < count($link); $i++) { 
             if($link[$i]->{'link'} == $this->obj[$i]['link']){
                 $collect[] = [

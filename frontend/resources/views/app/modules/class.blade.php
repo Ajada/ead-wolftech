@@ -104,7 +104,7 @@
             <button class="btn0">
                 <span class="form-btn">D - {{ $arr[3] }}</span>
             </button>
-
+            <input type="hidden" id="question" value="{{$question_id}}">
         @endcomponent
     </div>
 @endsection

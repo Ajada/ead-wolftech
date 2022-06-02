@@ -23,7 +23,7 @@ function onYouTubeIframeAPIReady() {
             controls: 0
         },
         events: {
-            'onReady' : onPlayerReady
+            'onReady' : onPlayerReady,
         }
     });
 }
@@ -44,8 +44,9 @@ function discoverTime(){
     // }
 
     if(videoTime == videoDuration - 30){
-        $('.container-modal').fadeIn()
         player.pauseVideo();
+        $('.container-modal').fadeIn()
+        // tes();
     }
 
     if(videoTime == videoDuration - 5){
@@ -58,26 +59,39 @@ function discoverTime(){
     }
 }
 
-$('.btn0').click(function(){
-    const _response = $(this).text();
-    const name = $('#user').text();
-    const classLink = $('#player').attr('data-vide-id');
+// function tes(){
+    $('.btn0').click(function(){
+        const _response = $(this).text();
+        const name = $('#user').text();
+        const classLink = $('#player').attr('data-vide-id');
+        const quiz_id = $('#question').val();
 
-    $.ajax({
-        url: '/api/questions_response',
-        method: 'post',
-        dataType: 'json',
-        data: {
-            "name" : name,
-            "class_score" : {"class_link" : classLink, "response" : _response}
-        }
-    }).done((data)=>{
-        // if(data.create == true || data.exist == true || data.updated == true){
-        player.playVideo();
-        // }
-        $('.container-modal').fadeOut() 
-    }); 
-    
-    return false
-});
+        $.ajax({
+            beforeSend: ()=>{
+                player.playVideo();
+            },
+            url: '/api/questions_response',
+            method: 'post',
+            dataType: 'json',
+            data: {
+                "name" : name,
+                "question_id" : quiz_id,
+                "class_score" : {"class_link" : classLink, "response" : _response}
+            }
+        }).done((data)=>{
+            if(data.right_answer == false){
+                player.pauseVideo();
+                alert('Sua resposta está incorreta ! Assista o video novamente');
+                window.location.reload();
+            }else{
+                alert('Resposta correta !');
+                // player.playVideo();
+            }
+            if(data.create == true || data.exist == true || data.updated == true){
+                $('.container-modal').fadeOut() 
+            }
+        }); 
+        return false
+    });
+// }
 
