@@ -49,7 +49,7 @@ function generateCertified(data)
 {
     var day = new Date;
     var dia = String(day.getDate()).padStart(2, '0');
-    var mes = String(day.getMonth()).padStart(2, '0');
+    var mes = String(day.getMonth() + 1).padStart(2, '0');
     var ano = day.getFullYear();
     var dia = dia+'/'+mes+'/'+ano;
 
