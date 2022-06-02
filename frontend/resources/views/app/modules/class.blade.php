@@ -26,27 +26,13 @@
                     <span>{{ $course_name }}</span>
                 </h1>
             </div>
-
-                <h2 style="font-weight: 700">AULAS CONCLUIDAS</h2>
-                @if ($memory !== null)   
-                    @foreach ($memory as $item)
-                        <div class="module-class ">
-                            <a class="pressed-class " title="{{ $item['desc'] }}" href="/module/{{ $id }}/{{ $item['link'] }}">
-                                <i class="fa-solid fa-check"></i> <span> {{ $item['name'] }} </span>
-                            </a>                
-                        </div> 
-                    @endforeach
-
-                    <hr>
-                @endif
-
-                @if ($before !== null)   
+                {{-- @if ($before !== null)   
                     <div class="module-class ">
                         <a class="pressed-class " title="{{ $before['desc'] }}" href="/module/{{ $id }}/{{ $before['link'] }}">
                             <i class="fa-solid fa-video"></i> <span> {{ $before['name'] }} </span>
                         </a>                
                     </div>
-                @endif
+                @endif --}}
 
                 <div class="module-class ">
                     <a style="color: brown; font-weight: 700" class="pressed-class " title="{{ $current['desc'] }}" href="/module/{{ $id }}/{{ $link }}">
@@ -67,6 +53,19 @@
                         </a>                
                     </div>
                 @endif    
+
+                <hr style="margin-top: 5px; margin-bottom: 10px">
+
+                <h2 style="font-weight: 700">AULAS ASSISTIDAS</h2>
+                @if ($memory !== null)   
+                    @foreach ($memory as $item)
+                        <div class="module-class ">
+                            <a class="pressed-class " title="{{ $item['desc'] }}" href="/module/{{ $id }}/{{ $item['link'] }}">
+                                <i class="fa-solid fa-check"></i> <span> {{ $item['name'] }} </span>
+                            </a>                
+                        </div> 
+                    @endforeach
+                @endif
 
 
         </div>
